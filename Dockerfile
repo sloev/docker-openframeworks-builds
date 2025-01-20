@@ -45,7 +45,10 @@ RUN git gets -H -v -Y  https://github.com/danomatika/ofxLua/commit/${OFXLUA_SHA}
 
 # compile openframeworks
 RUN /of/scripts/linux/compileOF.sh -j3
-RUN /of/scripts/linux/compilePG.sh 
-RUN /of/scripts/linux/buildAllExamples.sh
+RUN cd of/scripts/linux && ./compilePG.sh 
 
-WORKDIR /of/examples
+RUN cd of/ && /of/apps/projectGenerator/commandLine/bin/projectGenerator -r -o"." examples
+RUN cd of/ && /of/apps/projectGenerator/commandLine/bin/projectGenerator -r -o"." addons
+
+
+# WORKDIR /of/examples
