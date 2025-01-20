@@ -14,6 +14,7 @@ RUN \
         curl \
         bash \
         libluajit-5.1-dev \
+        liblua5.1-dev \
     # and to use sound also we need some more
     libpulse0 libasound2t64 libasound2-plugins alsa-base \
       && \
@@ -38,9 +39,8 @@ RUN of/scripts/linux/ubuntu/install_dependencies.sh && \
 
 ARG OFXLUA_SHA=e41dc17
 
-RUN git gets -H -v -Y  https://github.com/danomatika/ofxLua/commit/${OFXLUA_SHA} -o /of/addons/ofxLua && \
-    cp -r of/addons/ofxLua/luaExample/ of/examples/luaExample/
-
+RUN git gets -H -v -Y  https://github.com/danomatika/ofxLua/commit/${OFXLUA_SHA} -o /of/addons/ofxLua
+RUN cp -r of/addons/ofxLua/luaExample/ of/apps/myApps/luaExample/
 
 
 # compile openframeworks
@@ -48,7 +48,8 @@ RUN /of/scripts/linux/compileOF.sh -j3
 RUN cd of/scripts/linux && ./compilePG.sh 
 
 RUN cd of/ && /of/apps/projectGenerator/commandLine/bin/projectGenerator -r -o"." examples
-RUN cd of/ && /of/apps/projectGenerator/commandLine/bin/projectGenerator -r -o"." addons
 
+RUN cd of/ && /of/apps/projectGenerator/commandLine/bin/projectGenerator -r -o"." apps/myApps/luaExample/
+RUN cd of/apps/myApps/luaExample/ && make
 
 # WORKDIR /of/examples
