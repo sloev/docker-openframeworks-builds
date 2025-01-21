@@ -27,11 +27,6 @@ RUN \
 RUN curl -fsSL https://github.com/b1f6c1c4/git-get/releases/latest/download/git-get.tar.xz | /bin/tar -C /usr -xJv
 
 
-ARG OF_SHA=87b2868
-
-
-RUN git gets -H -v -Y  https://github.com/openFrameworks/openFrameworks/commit/${OF_SHA} -o of
-
 ARG OF_VERSION=0.12.0
 
 ADD https://github.com/openframeworks/openFrameworks/releases/download/${OF_VERSION}/of_v${OF_VERSION}_linux64gcc6_release.tar.gz /
