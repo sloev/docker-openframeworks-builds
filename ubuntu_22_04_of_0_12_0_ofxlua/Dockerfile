@@ -34,7 +34,6 @@ RUN cd / && tar -xf of_*.tar.gz && rm of_*.tar.gz && mv of_v* of
 
 # install of openframeworks dependencies
 RUN of/scripts/linux/ubuntu/install_dependencies.sh
-RUN of/scripts/linux/download_libs.sh  -a 64gcc6
 RUN rm -rf /var/lib/apt/lists/*
 
 
